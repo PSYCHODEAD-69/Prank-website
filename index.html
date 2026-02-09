@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My webpage</title>
+
+  <!-- Stylish font import -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      background: url('https://img.freepik.com/free-vector/paper-style-dynamic-lines-background_23-2149010949.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    /* Gallery Container */
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 20px;
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .car-image {
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.6s ease-out;
+      background-color: rgba(0, 0, 0, 0.3);
+   }
+
+    .car-image:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* View Gallery Button */
+    #viewGalleryBtn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 15px 40px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      transition: all 0.3s ease;
+      animation: glowPulse 2s infinite, buttonFloat 3s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #viewGalleryBtn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4),
+                    0 0 20px rgba(102, 126, 234, 0.3);
+      }
+      50% {
+        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6),
+                    0 0 40px rgba(102, 126, 234, 0.5);
+      }
+    }
+
+    @keyframes buttonFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes shine {
+      0% {
+        left: -50%;
+      }
+      100% {
+        left: 150%;
+      }
+    }
+
+    #viewGalleryBtn:hover {
+      transform: scale(1.1) translateY(-5px);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.7),
+                  0 0 50px rgba(102, 126, 234, 0.6);
+    }
+
+    #viewGalleryBtn:active {
+      transform: scale(0.95);
+    }
+
+    /* Result Section (Hidden initially) */
+    #resultSection {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    #mainImage {
+      width: 90%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      margin-bottom: 30px;
+      animation: zoomIn 0.8s ease-out;
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    #customText {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+      animation: textGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes textGlow {
+      0%, 100% {
+        text-shadow: 0 3px 12px rgba(0,0,0,0.6),
+                     0 0 20px rgba(255,255,255,0.3);
+      }
+      50% {
+        text-shadow: 0 3px 12px rgba(0,0,0,0.6),
+                     0 0 40px rgba(255,255,255,0.6);
+      }
+    }
+
+    /* Responsive for larger screens */
+    @media (min-width: 768px) {
+      #gallery {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 900px;
+      }
+      
+      .car-image {
+        height: 220px;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+        #customText {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.6);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Gallery Section -->
+  <div id="gallerySection">
+    <div id="gallery">
+      <!-- JavaScript will add images here -->
+    </div>
+
+    <button id="viewGalleryBtn">View Gallery</button>
+  </div>
+
+  <!-- Result Section (appears after button click) -->
+  <div id="resultSection">
+    <img id="mainImage" src="https://static.wixstatic.com/media/ab3281_8ffb23b6c60d4e9998746a0fb908c198~mv2.jpeg" alt="image">
+    
+    <div id="customText">
+      <span>Meow ghop ghop ghop ghop</span>
+    </div>
+  </div>
+
+  <!-- 🔊 Audio section (BGM file) -->
+  <audio id="bgm" loop preload="auto">
+    <source src="https://image2url.com/r2/default/audio/1770673092107-d750a16f-5fc5-46c9-a1ed-bca0e07cea4d.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Detect mobile or desktop
+    const isMobile = window.innerWidth <= 768;
+
+    // Get gallery container
+    const galleryContainer = document.getElementById('gallery');
+
+    // BMW image URLs
+    const allImages = [
+      "https://i.pinimg.com/236x/14/bb/c4/14bbc4e1188ec30b843a8cac6373f8a3.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Eki55oJu9F60wMcNMWCaRq9w4bxTc66Wx5_VLG6ckrkO0lr1dSh0yd0&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9EWLgE7x6gUQZXvOfZLM158FX7am837QecrqyV4puig&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5YT6wE7ewYSNOZCqeFVNFyxUNLd8wh3MfwE58XFG8-Q&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4OwT8mz6QOfV0MyI9Py5cGZkWacZHksZH2CFjJ2C0GA&s=10",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtVphMibR1piiAxjc7BRUzB7IbeAwk-khB0zR-MUev5w&s=10",
+      "https://images.news18.com/ibnlive/uploads/2022/02/bmw-m4-competition_1.png",
+      "https://www.supercars.net/blog/wp-content/uploads/2024/03/2023-BMW-3.0-CSL-001-2160-770x1020.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZyWfWmZXmm5WrdwScVPfllE2Q1wBOcUkU-2pBuG3Nhg&s=10"
+    ];
+
+    // Show only 4 images on mobile, all on desktop
+    const imagesToShow = isMobile ? allImages.slice(0, 4) : allImages;
+
+    // Clear existing images
+    galleryContainer.innerHTML = '';
+
+    // Add images dynamically
+    imagesToShow.forEach((imgUrl, index) => {
+      const img = document.createElement('img');
+      img.src = imgUrl;
+      img.alt = `BMW Car ${index + 1}`;
+      img.className = 'car-image';
+      galleryContainer.appendChild(img);
+    });
+
+    // Get elements
+    const viewGalleryBtn = document.getElementById('viewGalleryBtn');
+    const gallerySection = document.getElementById('gallerySection');
+    const resultSection = document.getElementById('resultSection');
+    const bgm = document.getElementById('bgm');
+
+    // Track if fullscreen was activated
+    let fullscreenActivated = false;
+
+    // Button click handler
+    viewGalleryBtn.addEventListener('click', async () => {
+      // Hide entire gallery section
+      gallerySection.style.display = 'none';
+      
+      // Show result section with main image and text
+      resultSection.style.display = 'flex';
+
+      // Mark fullscreen as activated
+      fullscreenActivated = true;
+
+      // Request fullscreen
+      try {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          await document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+          await document.documentElement.msRequestFullscreen();
+        }
+      } catch (err) {
+        console.log('Fullscreen request failed', err);
+      }
+
+      // Play background music
+      try {
+        await bgm.play();
+      } catch (err) {
+        console.log('Autoplay prevented – user gesture required', err);
+      }
+    });
+// Function to enter fullscreen
+function enterFullscreen() {
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(err => console.log('Fullscreen failed', err));
+  } else if (document.documentElement.webkitRequestFullscreen) {
+    document.documentElement.webkitRequestFullscreen().catch(err => console.log('Fullscreen failed', err));
+  } else if (document.documentElement.msRequestFullscreen) {
+    document.documentElement.msRequestFullscreen().catch(err => console.log('Fullscreen failed', err));
+  }
+}
+
+// Method 1: Auto re-enter on fullscreen exit (with delay)
+const events = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'];
+
+events.forEach(event => {
+  document.addEventListener(event, () => {
+    if (fullscreenActivated && !document.fullscreenElement && 
+        !document.webkitFullscreenElement && !document.mozFullScreenElement) {
+      
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          enterFullscreen();
+        });
+      }, 200);
+    }
+  });
+});
+
+// Method 2: Any click on screen after back = fullscreen
+document.addEventListener('click', () => {
+  if (fullscreenActivated && !document.fullscreenElement && 
+      !document.webkitFullscreenElement && !document.mozFullScreenElement) {
+    enterFullscreen();
+  }
+});
+
+// Method 3: Any touch on screen (mobile support)
+document.addEventListener('touchstart', () => {
+  if (fullscreenActivated && !document.fullscreenElement && 
+      !document.webkitFullscreenElement && !document.mozFullScreenElement) {
+    enterFullscreen();
+  }
+});
+
+// Method 4: Window focus event
+window.addEventListener('focus', () => {
+  if (fullscreenActivated && !document.fullscreenElement) {
+    setTimeout(() => {
+      enterFullscreen();
+    }, 200);
+  }
+});
+
+// Method 5: Visibility change (when user comes back to tab)
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && fullscreenActivated && !document.fullscreenElement) {
+    requestAnimationFrame(() => {
+      enterFullscreen();
+    });
+  }
+});
+  </script>
+</body>
+</html>
